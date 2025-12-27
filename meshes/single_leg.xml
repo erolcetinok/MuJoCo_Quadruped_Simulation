@@ -1,16 +1,14 @@
 <mujoco model="single_leg">
     <compiler angle="radian"/>
 
-
-    <option gravity="0 0 0"/>
+    <option gravity="0 0 -9.81"/>
 
     <asset>
         <mesh name="body_mesh"     file="../models/body.STL"/>
         <mesh name="shoulder_mesh" file="../models/shoulder.STL"/>
-        <mesh name="thigh_mesh" file="../models/thigh.STL"/>
+        <mesh name="thigh_mesh"    file="../models/thigh.STL"/>
         <mesh name="foot_mesh"     file="../models/foot.STL"/>
 
-        <!-- simple grid texture -->
         <texture name="texgrid" type="2d" builtin="checker"
                  rgb1="0.2 0.2 0.2" rgb2="0.85 0.85 0.85"
                  width="512" height="512"/>
@@ -18,51 +16,59 @@
     </asset>
 
     <worldbody>
-        <!-- grid + world axes -->
-        <geom name="ground" type="plane" size="30 30 0.1" material="grid" rgba="1 1 1 1"/>
+        <geom name="ground" type="plane" size="1000 1000 0.1" material="grid" rgba="1 1 1 1"/>
 
         <site name="world_x" type="capsule" fromto="0 0 0  3 0 0" size="0.05" rgba="1 0 0 1"/>
         <site name="world_y" type="capsule" fromto="0 0 0  0 3 0" size="0.05" rgba="0 1 0 1"/>
         <site name="world_z" type="capsule" fromto="0 0 0  0 0 3" size="0.05" rgba="0 0 1 1"/>
 
-        <body name="body" pos="-100 100 -21.4">
-            <geom type="mesh"
-                  mesh="body_mesh"
-                  quat="0.7071068 0.7071068 0 0"/>
+        <body name="stage" pos="0 0 150">
 
-            <body name="shoulder" pos="79.75 -172 0">
-                <joint name="shoulder_joint" type="hinge" axis="0 0 1" pos="20.25 -15 0" limited="true" range="-1.57 1.57"/>
-<!--                <site name="shoulder_axis" type="cylinder" size="1" fromto="20.25 -15 -100 20.25 -15 100" rgba="1 1 0 1"/>-->
+            <body name="body" pos="-100 100 -21.4">
                 <geom type="mesh"
-                      mesh="shoulder_mesh"
+                      mesh="body_mesh"
                       quat="0.7071068 0.7071068 0 0"/>
 
-                <body name="thigh" pos="0 -35.75 -13.1"> <!--0 -35.75 -0 -->
-                    <joint name="wing_joint" type="hinge" axis="1 0 0" pos="0 -2.5  34.5" limited="true" range="-0.785 0.785"/>
-<!--                    <site name="wing_axis" type="cylinder" size="1" fromto="-100 -2.5 34.5 100 -2.5 34.5" rgba="0 1 1 1"/>-->
+                <body name="shoulder" pos="79.75 -172 0">
+                    <joint name="shoulder_joint" type="hinge" axis="0 0 1" pos="20.25 -15 0"
+                           limited="true" range="-1.57079632679 1.57079632679"/>
                     <geom type="mesh"
-                          mesh="thigh_mesh"
+                          mesh="shoulder_mesh"
                           quat="0.7071068 0.7071068 0 0"/>
 
-                    <body name="foot" pos="0 -98 -98.75">
-                        <joint name="knee_joint"     type="hinge" axis="1 0 0" pos="0 -12 110" limited="true" range="-2.094 0"/>
-<!--                        <site name="knee_axis" type="cylinder" size="1" fromto="-100 -12 110 100 -12 110" rgba="1 0 1 1"/>-->
+                    <body name="thigh" pos="0 -35.75 -13.1">
+                        <joint name="wing_joint" type="hinge" axis="1 0 0" pos="0 -2.5 34.5"
+                               limited="true" range="-0.872664625997 0.872664625997"/>
                         <geom type="mesh"
-                              mesh="foot_mesh"
+                              mesh="thigh_mesh"
                               quat="0.7071068 0.7071068 0 0"/>
 
-<!--                        <site name="foot_site" pos="0 0 0" size="0.01" rgba="1 0 0 1"/>-->
+                        <body name="foot" pos="0 -98 -98.75">
+                            <joint name="knee_joint" type="hinge" axis="1 0 0" pos="0 -12 110"
+                                   limited="true" range="-2.00712863979 1.57079632679"/>
+                            <geom type="mesh"
+                                  mesh="foot_mesh"
+                                  quat="0.7071068 0.7071068 0 0"/>
+
+                            <site name="foot_site" pos="21 -12 0" size="1" rgba="1 0 0 1"/>
+                        </body>
                     </body>
                 </body>
-
             </body>
+
+        </body>
+
+        <body name="ik_target" mocap="true" pos="0 0 150">
+            <site name="target_site" pos="20 -175 -50" size="8" rgba="1 0.5 0 1"/>
         </body>
     </worldbody>
 
     <actuator>
-        <position name="shoulder_actuator" joint="shoulder_joint" kp="0" gear="1"/>
-        <position name="wing_actuator" joint="wing_joint" kp="0" gear="1"/>
-        <position name="knee_actuator" joint="knee_joint" kp="0" gear="1"/>
+        <position name="shoulder_actuator" joint="shoulder_joint" kp="80"
+                  ctrlrange="-1.57079632679 1.57079632679"/>
+        <position name="wing_actuator" joint="wing_joint" kp="60"
+                  ctrlrange="-0.872664625997 0.872664625997"/>
+        <position name="knee_actuator" joint="knee_joint" kp="80"
+                  ctrlrange="-0.872664625997 1.3962634016"/>
     </actuator>
-
 </mujoco>

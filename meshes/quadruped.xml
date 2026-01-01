@@ -31,14 +31,6 @@
                    limited="true" range="-2.00712863979 1.57079632679"/>
         </default>
 
-        <!-- Body position defaults -->
-        <default class="thigh_body">
-            <body pos="0 -35.75 -13.1"/>
-        </default>
-        <default class="foot_body">
-            <body pos="0 -98 -98.75"/>
-        </default>
-
         <!-- Geom defaults for mesh rotations -->
         <default class="mesh_geom">
             <geom type="mesh" quat="0.7071068 0.7071068 0 0"/>
@@ -82,11 +74,11 @@
                     <joint name="shoulder_joint_FL" class="shoulder_joint"/>
                     <geom class="mesh_geom" mesh="shoulder_mesh"/>
 
-                    <body name="thigh_FL" class="thigh_body">
+                    <body name="thigh_FL" pos="0 -35.75 -13.1">
                         <joint name="wing_joint_FL" class="wing_joint"/>
                         <geom class="mesh_geom" mesh="thigh_mesh"/>
 
-                        <body name="foot_FL" class="foot_body">
+                        <body name="foot_FL" pos="0 -98 -98.75">
                             <joint name="knee_joint_FL" class="knee_joint"/>
                             <geom class="mesh_geom" mesh="foot_mesh"/>
 
@@ -100,11 +92,11 @@
                     <joint name="shoulder_joint_FR" class="shoulder_joint"/>
                     <geom class="mesh_geom" mesh="shoulder_mesh"/>
 
-                    <body name="thigh_FR" class="thigh_body">
+                    <body name="thigh_FR" pos="0 -35.75 -13.1">
                         <joint name="wing_joint_FR" class="wing_joint"/>
                         <geom class="mesh_geom" mesh="thigh_mesh"/>
 
-                        <body name="foot_FR" class="foot_body">
+                        <body name="foot_FR" pos="0 -98 -98.75">
                             <joint name="knee_joint_FR" class="knee_joint"/>
                             <geom class="mesh_geom" mesh="foot_mesh"/>
 
@@ -118,11 +110,11 @@
                     <joint name="shoulder_joint_BL" class="shoulder_joint"/>
                     <geom class="mesh_geom" mesh="shoulder_mesh"/>
 
-                    <body name="thigh_BL" class="thigh_body">
+                    <body name="thigh_BL" pos="0 -35.75 -13.1">
                         <joint name="wing_joint_BL" class="wing_joint"/>
                         <geom class="mesh_geom" mesh="thigh_mesh"/>
 
-                        <body name="foot_BL" class="foot_body">
+                        <body name="foot_BL" pos="0 -98 -98.75">
                             <joint name="knee_joint_BL" class="knee_joint"/>
                             <geom class="mesh_geom" mesh="foot_mesh"/>
 
@@ -136,11 +128,11 @@
                     <joint name="shoulder_joint_BR" class="shoulder_joint"/>
                     <geom class="mesh_geom" mesh="shoulder_mesh"/>
 
-                    <body name="thigh_BR" class="thigh_body">
+                    <body name="thigh_BR" pos="0 -35.75 -13.1">
                         <joint name="wing_joint_BR" class="wing_joint"/>
                         <geom class="mesh_geom" mesh="thigh_mesh"/>
 
-                        <body name="foot_BR" class="foot_body">
+                        <body name="foot_BR" pos="0 -98 -98.75">
                             <joint name="knee_joint_BR" class="knee_joint"/>
                             <geom class="mesh_geom" mesh="foot_mesh"/>
 
@@ -153,8 +145,7 @@
 
         </body>
 
-        <!-- IK targets for each leg (mocap bodies) -->
-        <!-- Mocap body positions set to match foot_site world positions when all joints are at zero -->
+        <!-- IK targets for each leg -->
         <body name="ik_target_FL" mocap="true" pos="-0.75 217.75 0.1">
             <site name="target_site_FL" class="target_site"/>
         </body>

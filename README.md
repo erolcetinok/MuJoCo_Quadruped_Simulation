@@ -1,3 +1,3 @@
 # MuJoCo_Leg_Simulation
 
-hello!
+Practice with MujoCo for Quadruped Project

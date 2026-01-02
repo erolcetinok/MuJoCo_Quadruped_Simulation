@@ -66,7 +66,7 @@
         <body name="stage" pos="0 0 133.35">
             
 
-            <body name="body" pos="-100 100 -21.4">
+            <body name="body" pos="-100 100 -61.4"> //-21.4 is default
                 <geom class="mesh_geom" mesh="body_mesh"/>
                 
                 <!-- FRONT LEFT LEG (FL) -->
